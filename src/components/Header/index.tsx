@@ -6,7 +6,12 @@ import { Menu } from "../../states";
 
 const Header = () => {
   return (
-    <AppBar position="static">
+    <AppBar
+      position="static"
+      sx={{
+        height: 64,
+      }}
+    >
       <Stack direction="row" alignItems="center">
         {/* 메뉴 버튼 */}
         <IconButton

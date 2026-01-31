@@ -8,6 +8,9 @@ const palette = {
   secondary: {
     main: "#52A2D6",
   },
+  background: {
+    default: "#E6E7E6",
+  },
 };
 
 // 타이포그래피
