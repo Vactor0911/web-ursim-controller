@@ -43,7 +43,7 @@ const TcpPositionPanel = () => {
           position="relative"
           gap="50px"
           sx={{
-            transform: "perspective(300px) rotateX(40deg) translateY(-50px)",
+            transform: "perspective(300px) rotateX(40deg) translateY(-10px)",
             transformStyle: "preserve-3d",
           }}
         >
