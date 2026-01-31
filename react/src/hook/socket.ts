@@ -107,7 +107,6 @@ export const useSocket = () => {
   const sendCommand = useCallback((event: string, data?: unknown) => {
     if (socketRef.current?.connected) {
       socketRef.current.emit(event, data);
-      console.log(`이벤트 전송: ${event}`, data);
     } else {
       console.warn("Socket.IO가 연결되어 있지 않습니다.");
     }
