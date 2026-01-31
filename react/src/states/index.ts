@@ -10,6 +10,7 @@ const robotPromise = new Promise<URDFRobot>((resolve) => {
   let robot: URDFRobot | null = null;
   loader.load("./ur10e.urdf", (urdf) => {
     robot = urdf;
+    robot.rotateZ(Math.PI);
   });
 
   manager.onLoad = () => {
