@@ -3,8 +3,13 @@ import Panel from "../../components/Panel";
 import ForwardRoundedIcon from "@mui/icons-material/ForwardRounded";
 import ControllerButton from "./ControllerButton";
 import ReplyRoundedIcon from "@mui/icons-material/ReplyRounded";
+import { useCommand } from "../../hook/urCommand";
+
+const SPEED = 0.2;
 
 const TcpOrientationPanel = () => {
+  const { sendCommand } = useCommand();
+
   return (
     <Panel label="TCP Orientation">
       <Stack p={1}>
@@ -16,7 +21,11 @@ const TcpOrientationPanel = () => {
           overflow="hidden"
         >
           {/* Z+ */}
-          <ControllerButton label="RZ+">
+          <ControllerButton
+            label="RZ+"
+            onMouseDown={() => sendCommand("rz", 1, SPEED)}
+            onMouseUp={() => sendCommand("rz", 0, SPEED)}
+          >
             <ReplyRoundedIcon
               viewBox="2 2 22 22"
               sx={{
@@ -28,7 +37,11 @@ const TcpOrientationPanel = () => {
           </ControllerButton>
 
           {/* Z- */}
-          <ControllerButton label="RZ-">
+          <ControllerButton
+            label="RZ-"
+            onMouseDown={() => sendCommand("rz", -1, SPEED)}
+            onMouseUp={() => sendCommand("rz", 0, SPEED)}
+          >
             <ReplyRoundedIcon
               viewBox="2 2 22 22"
               sx={{
@@ -42,7 +55,11 @@ const TcpOrientationPanel = () => {
 
         <Stack position="relative" gap="50px">
           {/* RY- */}
-          <ControllerButton label="RY-">
+          <ControllerButton
+            label="RY-"
+            onMouseDown={() => sendCommand("ry", -1, SPEED)}
+            onMouseUp={() => sendCommand("ry", 0, SPEED)}
+          >
             <ForwardRoundedIcon
               viewBox="4 4 16 16"
               sx={{
@@ -54,7 +71,11 @@ const TcpOrientationPanel = () => {
           </ControllerButton>
 
           {/* RY+ */}
-          <ControllerButton label="RY+">
+          <ControllerButton
+            label="RY+"
+            onMouseDown={() => sendCommand("ry", 1, SPEED)}
+            onMouseUp={() => sendCommand("ry", 0, SPEED)}
+          >
             <ForwardRoundedIcon
               viewBox="4 4 16 16"
               sx={{
@@ -80,7 +101,11 @@ const TcpOrientationPanel = () => {
             }}
           >
             {/* RX+ */}
-            <ControllerButton label="RX+">
+            <ControllerButton
+              label="RX+"
+              onMouseDown={() => sendCommand("rx", 1, SPEED)}
+              onMouseUp={() => sendCommand("rx", 0, SPEED)}
+            >
               <ForwardRoundedIcon
                 viewBox="4 4 16 16"
                 sx={{
@@ -92,7 +117,11 @@ const TcpOrientationPanel = () => {
             </ControllerButton>
 
             {/* RX- */}
-            <ControllerButton label="RX-">
+            <ControllerButton
+              label="RX-"
+              onMouseDown={() => sendCommand("rx", -1, SPEED)}
+              onMouseUp={() => sendCommand("rx", 0, SPEED)}
+            >
               <ForwardRoundedIcon
                 viewBox="4 4 16 16"
                 sx={{

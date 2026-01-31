@@ -1,8 +1,12 @@
 import { Stack, Switch, Typography } from "@mui/material";
 import Panel from "../../components/Panel";
 import { useCallback, useState } from "react";
+import { useAtomValue } from "jotai";
+import { robotDataAtom } from "../../states";
+import { formatUnitValue } from "../../utils";
 
 const ToolPositionPanel = () => {
+  const robotData = useAtomValue(robotDataAtom);
   const [positionUnit, setPositionUnit] = useState<"m" | "inch">("m");
 
   const handlePositionUnitToggle = useCallback(() => {
@@ -13,13 +17,25 @@ const ToolPositionPanel = () => {
     <Panel label="Tool Position" flex={1}>
       <Stack gap={1} p={1} py={2}>
         <Typography variant="h6" fontWeight={400}>
-          X <strong>10</strong> {positionUnit}
+          X{" "}
+          <strong>
+            {formatUnitValue(robotData?.position.x || 0, positionUnit)}
+          </strong>{" "}
+          {positionUnit}
         </Typography>
         <Typography variant="h6" fontWeight={400}>
-          Y <strong>10</strong> {positionUnit}
+          Y{" "}
+          <strong>
+            {formatUnitValue(robotData?.position.y || 0, positionUnit)}
+          </strong>{" "}
+          {positionUnit}
         </Typography>
         <Typography variant="h6" fontWeight={400}>
-          Z <strong>10</strong> {positionUnit}
+          Z{" "}
+          <strong>
+            {formatUnitValue(robotData?.position.z || 0, positionUnit)}
+          </strong>{" "}
+          {positionUnit}
         </Typography>
 
         {/* 단위 변환 스위치 */}

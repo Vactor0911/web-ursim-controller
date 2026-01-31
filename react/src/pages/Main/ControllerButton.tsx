@@ -1,13 +1,13 @@
-import { ButtonBase, Typography } from "@mui/material";
+import { ButtonBase, Typography, type ButtonProps } from "@mui/material";
 import type { ReactNode } from "react";
 
-interface ControllerButtonProps {
+interface ControllerButtonProps extends ButtonProps {
   children: ReactNode;
   label: string;
 }
 
 const ControllerButton = (props: ControllerButtonProps) => {
-  const { children, label } = props;
+  const { children, label, ...others } = props;
 
   return (
     <ButtonBase
@@ -19,6 +19,7 @@ const ControllerButton = (props: ControllerButtonProps) => {
           filter: "brightness(0.8)",
         },
       }}
+      {...others}
     >
       {children}
       <Typography

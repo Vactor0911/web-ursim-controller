@@ -2,8 +2,11 @@ import { Stack } from "@mui/material";
 import Panel from "../../components/Panel";
 import ForwardRoundedIcon from "@mui/icons-material/ForwardRounded";
 import ControllerButton from "./ControllerButton";
+import { useCommand } from "../../hook/urCommand";
 
 const TcpPositionPanel = () => {
+  const { sendCommand } = useCommand();
+
   return (
     <Panel label="TCP Position">
       <Stack p={1}>
@@ -15,7 +18,11 @@ const TcpPositionPanel = () => {
           overflow="hidden"
         >
           {/* Z+ */}
-          <ControllerButton label="Z+">
+          <ControllerButton
+            label="Z+"
+            onMouseDown={() => sendCommand("z", 1)}
+            onMouseUp={() => sendCommand("z", 0)}
+          >
             <ForwardRoundedIcon
               viewBox="4 4 16 16"
               sx={{
@@ -27,7 +34,11 @@ const TcpPositionPanel = () => {
           </ControllerButton>
 
           {/* Z- */}
-          <ControllerButton label="Z-">
+          <ControllerButton
+            label="Z-"
+            onMouseDown={() => sendCommand("z", -1)}
+            onMouseUp={() => sendCommand("z", 0)}
+          >
             <ForwardRoundedIcon
               viewBox="4 4 16 16"
               sx={{
@@ -48,7 +59,11 @@ const TcpPositionPanel = () => {
           }}
         >
           {/* X- */}
-          <ControllerButton label="X-">
+          <ControllerButton
+            label="X-"
+            onMouseDown={() => sendCommand("x", -1)}
+            onMouseUp={() => sendCommand("x", 0)}
+          >
             <ForwardRoundedIcon
               viewBox="4 4 16 16"
               sx={{
@@ -60,7 +75,11 @@ const TcpPositionPanel = () => {
           </ControllerButton>
 
           {/* X+ */}
-          <ControllerButton label="X+">
+          <ControllerButton
+            label="X+"
+            onMouseDown={() => sendCommand("x", 1)}
+            onMouseUp={() => sendCommand("x", 0)}
+          >
             <ForwardRoundedIcon
               viewBox="4 4 16 16"
               sx={{
@@ -86,7 +105,11 @@ const TcpPositionPanel = () => {
             }}
           >
             {/* Y- */}
-            <ControllerButton label="Y-">
+            <ControllerButton
+              label="Y-"
+              onMouseDown={() => sendCommand("y", -1)}
+              onMouseUp={() => sendCommand("y", 0)}
+            >
               <ForwardRoundedIcon
                 viewBox="4 4 16 16"
                 sx={{
@@ -98,7 +121,11 @@ const TcpPositionPanel = () => {
             </ControllerButton>
 
             {/* Y+ */}
-            <ControllerButton label="Y+">
+            <ControllerButton
+              label="Y+"
+              onMouseDown={() => sendCommand("y", 1)}
+              onMouseUp={() => sendCommand("y", 0)}
+            >
               <ForwardRoundedIcon
                 viewBox="4 4 16 16"
                 sx={{
