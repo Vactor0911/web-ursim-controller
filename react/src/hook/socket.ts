@@ -1,5 +1,5 @@
-import { useSetAtom } from "jotai";
-import { robotDataAtom } from "../states";
+import { useAtomValue, useSetAtom } from "jotai";
+import { robotAtom, robotDataAtom } from "../states";
 import { useEffect, useRef, useCallback, useState } from "react";
 import { io, Socket } from "socket.io-client";
 
@@ -7,6 +7,7 @@ export const useSocket = () => {
   const [connected, setConnected] = useState(false);
   const setRobotData = useSetAtom(robotDataAtom);
   const socketRef = useRef<Socket | null>(null);
+  const robot = useAtomValue(robotAtom);
 
   // 소켓 연결 함수
   const connect = useCallback(() => {
@@ -42,6 +43,16 @@ export const useSocket = () => {
     });
     socket.on("robot_data", (data) => {
       setRobotData(data);
+
+      // 축 각도 업데이트
+      if (robot && data.joints) {
+        robot.joints.shoulder_pan_joint.setJointValue(data.joints.base);
+        robot.joints.shoulder_lift_joint.setJointValue(data.joints.shoulder);
+        robot.joints.elbow_joint.setJointValue(data.joints.elbow);
+        robot.joints.wrist_1_joint.setJointValue(data.joints.wrist1);
+        robot.joints.wrist_2_joint.setJointValue(data.joints.wrist2);
+        robot.joints.wrist_3_joint.setJointValue(data.joints.wrist3);
+      }
     });
     socket.on("status", (message) => {
       console.log("상태:", message);
@@ -60,7 +71,7 @@ export const useSocket = () => {
         socket.connect();
       }
     });
-  }, [setRobotData]);
+  }, [robot, setRobotData]);
 
   // 페이지 렌더 시 자동 연결
   useEffect(() => {

@@ -17,6 +17,8 @@ const io = new Server(httpServer, {
   transports: ["websocket", "polling"],
 });
 
+const rad2deg = (rad: number) => (rad * 180) / Math.PI;
+
 const UR_HOST = "localhost"; // UR Robot IP
 const UR_PORT = 30003;
 
@@ -117,6 +119,14 @@ function parseURPacket(data: Buffer, socket: any) {
   const ry = data.readDoubleBE(toolOffset + 32);
   const rz = data.readDoubleBE(toolOffset + 40);
 
+  const jointOffset = 252;
+  const base = data.readDoubleBE(jointOffset);
+  const shoulder = data.readDoubleBE(jointOffset + 8);
+  const elbow = data.readDoubleBE(jointOffset + 16);
+  const wrist1 = data.readDoubleBE(jointOffset + 24);
+  const wrist2 = data.readDoubleBE(jointOffset + 32);
+  const wrist3 = data.readDoubleBE(jointOffset + 40);
+
   // Robot 데이터 객체 생성
   const robotData = {
     type: "robot_data",
@@ -135,6 +145,14 @@ function parseURPacket(data: Buffer, socket: any) {
       rx,
       ry,
       rz,
+    },
+    joints: {
+      base,
+      shoulder,
+      elbow,
+      wrist1,
+      wrist2,
+      wrist3,
     },
   };
 

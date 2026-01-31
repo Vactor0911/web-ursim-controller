@@ -1,5 +1,4 @@
 import { Stack } from "@mui/material";
-import Panel from "../../components/Panel";
 import ToolPositionPanel from "./ToolPositionPanel";
 import ToolOrientationPanel from "./ToolOrientationPanel";
 import TcpPositionPanel from "./TcpPositionPanel";
@@ -8,6 +7,9 @@ import { useSocket } from "../../hook/socket";
 import { useEffect, useState } from "react";
 import { useAtomValue } from "jotai";
 import { tcpDataAtom } from "../../states";
+import Panel from "../../components/Panel";
+import RobotScene from "../../components/RobotScene";
+import { Canvas } from "@react-three/fiber";
 
 const Main = () => {
   const { connected, sendCommand } = useSocket();
@@ -57,7 +59,11 @@ const Main = () => {
       </Stack>
 
       {/* Robot */}
-      <Panel label="Robot" flex={3} height="100%"></Panel>
+      <Panel label="Robot" flex={3} height="100%">
+        <Canvas camera={{ position: [0, -3, 0], fov: 60 }}>
+          <RobotScene />
+        </Canvas>
+      </Panel>
 
       {/* 회전 */}
       <Stack flex={1}>

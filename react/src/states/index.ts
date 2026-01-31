@@ -1,4 +1,21 @@
 import { atom } from "jotai";
+import { LoadingManager } from "three";
+import URDFLoader from "urdf-loader";
+import type { URDFRobot } from "urdf-loader";
+
+const robotPromise = new Promise<URDFRobot>((resolve) => {
+  const manager = new LoadingManager();
+  const loader = new URDFLoader(manager);
+
+  let robot: URDFRobot | null = null;
+  loader.load("./ur10e.urdf", (urdf) => {
+    robot = urdf;
+  });
+
+  manager.onLoad = () => {
+    resolve(robot!);
+  };
+});
 
 /**
  * 메뉴 상태
@@ -28,6 +45,14 @@ interface RobotData {
     ry: number;
     rz: number;
   };
+  joints: {
+    base: number;
+    shoulder: number;
+    elbow: number;
+    wrist1: number;
+    wrist2: number;
+    wrist3: number;
+  };
   timestamp: string;
 }
 export const robotDataAtom = atom<RobotData | null>(null);
@@ -47,3 +72,5 @@ export const tcpDataAtom = atom<{
   ry: 0,
   rz: 0,
 });
+
+export const robotAtom = atom(await robotPromise);
